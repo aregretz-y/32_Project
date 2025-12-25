@@ -103,23 +103,23 @@ uint8_t led_count = 0;
 void TIM3_Config(void)
 {
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-  NVIC_InitTypeDef NVIC_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
 
-  //1.打开时钟
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
-	
+	//1.打开时钟
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+
 	//2.初始化结构体，赋值并初始化
 	TIM_TimeBaseStructure.TIM_Prescaler = 8400-1;//设置分频值
-  TIM_TimeBaseStructure.TIM_Period    = 10000-1;//设置计数次数
-  TIM_TimeBaseStructure.TIM_ClockDivision = 0; //不二次分频
-  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;//设置递增模式
+	TIM_TimeBaseStructure.TIM_Period    = 10000-1;//设置计数次数
+	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //不二次分频
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;//设置递增模式
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
 
-  //3.配置NVIC，赋值并初始化
-  NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
+	//3.配置NVIC，赋值并初始化
+	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
 	
 	//4.选择中断源 更新事件：计数器上溢
 	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
@@ -138,13 +138,13 @@ void LED_Config(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
-	
+
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_UP;
-  GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_9;
-  GPIO_Init(GPIOF, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_UP;
+	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_9;
+	GPIO_Init(GPIOF, &GPIO_InitStructure);
 	LED_OFF();
 }
 
@@ -552,7 +552,7 @@ int main(void)
 
 	//1.硬件初始化
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//中断优先级分组，采用分组4则表示抢占优先级的范围是0~15，子优先级的值固定为0
-  USART1_Config(115200); //PC
+	USART1_Config(115200); //PC
 	WIFI_Config(115200);   //WIFI
 	LED_Config();
 	

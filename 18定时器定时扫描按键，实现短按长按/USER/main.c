@@ -156,22 +156,22 @@ void TIM_Config(void)
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	NVIC_InitTypeDef   NVIC_InitStructure;
 
-  //1.打开时钟
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
-	
+	//1.打开时钟
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+
 	//2.配置时基---2ms
 	TIM_TimeBaseStructure.TIM_Prescaler = 8400 - 1;     // 分频
 	TIM_TimeBaseStructure.TIM_Period = 20 - 1;     // 周期：2ms
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
-	
+
 	//3.配置NVIC
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;	//抢占优先级
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-	
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;	//抢占优先级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
 	TIM_ITConfig(TIM3, TIM_IT_Update,ENABLE); 
 
 	//3.启动定时器
@@ -185,17 +185,17 @@ void TIM_Config(void)
   */
 void KEY_Config(void)
 {
-	
+
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	//1.打开时钟
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-	
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+
 	//2.配置参数，KEY0的，输入模式，并初始化
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  GPIO_Init(GPIOA, &GPIO_InitStructure); 
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOA, &GPIO_InitStructure); 
 }
 
 /**
@@ -209,18 +209,18 @@ void LED_Config(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	//1.打开时钟
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
 
-	
+
 	//2.配置参数，LED0 LED1的，输出模式，并初始化
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_Init(GPIOF, &GPIO_InitStructure); 
-	
+	GPIO_Init(GPIOF, &GPIO_InitStructure); 
+
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14;
 	GPIO_Init(GPIOE, &GPIO_InitStructure); 
 
